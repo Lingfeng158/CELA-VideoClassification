@@ -24,19 +24,10 @@ import threading
 warnings.filterwarnings('ignore')
 #from guppy import hpy
 
-model = applications.inception_v3.InceptionV3(weights='imagenet', include_top=False,input_shape = ( 244, 244, 3))
-layer_name = 'mixed8'
-intermediate_layer_model = Model(inputs=model.input,
-                                 outputs=model.get_layer(layer_name).output)
-
 def intermediateOutput(dataInput):
     """
     dataInput with 4 dimension
     """
-    model = applications.inception_v3.InceptionV3(weights='imagenet', include_top=False,input_shape = ( 244, 244, 3))
-    layer_name = 'mixed8'
-    intermediate_layer_model = Model(inputs=model.input,
-                                     outputs=model.get_layer(layer_name).output)
     intermediate_output = intermediate_layer_model.predict(dataInput)
     return intermediate_output
 def saveOutput(path, name, file):
@@ -116,7 +107,10 @@ def processImg(fileid, fileList, pathToList, invertData, destination):
         gc.collect()
     
         
-
+model = applications.inception_v3.InceptionV3(weights='imagenet', include_top=False,input_shape = ( 244, 244, 3))
+layer_name = 'mixed8'
+intermediate_layer_model = Model(inputs=model.input,
+                                 outputs=model.get_layer(layer_name).output)
 parentDataFolder='/home/livelab/Desktop/VideoData'
 pathToDestination='/home/livelab/Desktop/Processed'
 TTV=['Test','Validation','Training']
