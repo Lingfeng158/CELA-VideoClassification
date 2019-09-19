@@ -120,10 +120,10 @@ for folder in TTV:
     if '.DS_Store' in cateList:
         cateList.remove('.DS_Store')
     #for category in cateList:
-    if (folder == 'Test' and 'PULSE-OX' in cateList):
-        cateList.remove('PULSE-OX')
-    if (folder == 'Test' and  'ECG LEADS' in cateList):
-        cateList.remove('ECG LEADS')
+    #if (folder == 'Test' and 'PULSE-OX' in cateList):
+    #    cateList.remove('PULSE-OX')
+    #if (folder == 'Test' and  'ECG LEADS' in cateList):
+    #    cateList.remove('ECG LEADS')
     #thCount=multiprocessing.cpu_count()
     #pool = multiprocessing.Pool(int(thCount/2))
     partial_processImg=partial(processImg, fileList=cateList, pathToList=pathToFolder,
@@ -132,7 +132,7 @@ for folder in TTV:
     #with tf.device('/GPU:0'):
     #_=pool.map(partial_processImg,range(N))
     #pool.close()
-    #pool.join()
+    #pool.detach()
     for i in range(N):
         partial_processImg(i)
 
