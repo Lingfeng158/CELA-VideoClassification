@@ -59,7 +59,7 @@ def loadData(file, invertData=False):
     img=img.reshape(1,244,244,3)
     return img
 #make function that is multiprocessable
-def processImg(fileid, fileList, pathToList, invertData, destination):
+def processImg(fileid, fileList, pathToList, invertData, destination, folderTTV):
     """
     Treat categories as multiprocessable resource
     
@@ -68,6 +68,7 @@ def processImg(fileid, fileList, pathToList, invertData, destination):
     pathToList = path to category
     invertData = if vertically invert the data
     destination = PARENT folder path to be saved to
+    folderTTV = which folder TTV to save to
     
     This function reads in image data, process the range to [-2,0], 
     and then input the data to inceptionV3 model
@@ -90,7 +91,7 @@ def processImg(fileid, fileList, pathToList, invertData, destination):
         if(int(img[6:10])%5!=0):
             continue
         fileName=os.path.join(fullpath,img)
-        destinationCategory=os.path.join(destination,categoryName)
+        destinationCategory=os.path.join(destination, folderTTV, categoryName)
         makeDir(destinationCategory)
         #allow for continuity after failures
         if (endSkip == False and checkOutput(destinationCategory,img[:-4])):
@@ -112,7 +113,7 @@ layer_name = 'mixed8'
 intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
 parentDataFolder='/home/livelab/Desktop/VideoData'
-pathToDestination='/home/livelab/Desktop/Processed'
+pathToDestination='/media/livelab/Seagate Expansion Drive/ImageData'
 TTV=['Test','Validation','Training']
 for folder in TTV:
     pathToFolder=os.path.join(parentDataFolder,folder)
@@ -127,7 +128,7 @@ for folder in TTV:
     #thCount=multiprocessing.cpu_count()
     #pool = multiprocessing.Pool(int(thCount/2))
     partial_processImg=partial(processImg, fileList=cateList, pathToList=pathToFolder,
-                                invertData=False, destination=pathToDestination)
+                                invertData=False, destination=pathToDestination, folderTTV=folder)
     N = len(cateList)
     #with tf.device('/GPU:0'):
     #_=pool.map(partial_processImg,range(N))
