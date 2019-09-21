@@ -9,11 +9,16 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import LabelEncoder
 from functools import partial
+from PIL import Image
+import random
 
 def altPathJoin(path2, path1):
     return os.path.join(path1, path2)
 
 def prepdata(path):
+    """
+    given path to data parent folder, return [onehot encoded category, sorted clip data path]
+    """
     labelList=[]
     dataList=[]
     #get one-hot label for categories
@@ -63,6 +68,30 @@ def prepdata(path):
                 #dataList.append(frameData)
         iter+=1
     return labelList, dataList
+
+def imageListLoader(fileList):
+    fileList.sort()
+    randInt=random.randint(0,1)
+    invertData=False
+    if (randInt==1):
+        invertData=True
+    resultList=[]
+    for file in fileList:
+        img=Image.open(file, 'r')
+        if(invertData):
+            img=img.transpose(Image.FLIP_LEFT_RIGHT)
+        img=np.array(img)
+        img=(img/255-1)*2
+        img=img.reshape(1,244,244,3)
+        resultList.append(img)
+    return resultList
+
+def npyListLoader(fileList):
+    fileList.sort()
+    resultList=[]
+    data=np.load(filename)
+    resultList.append(data)
+    return resultList
 
 
 if __name__ == '__main__':
