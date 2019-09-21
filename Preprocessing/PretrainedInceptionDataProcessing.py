@@ -112,9 +112,9 @@ model = applications.inception_v3.InceptionV3(weights='imagenet', include_top=Fa
 layer_name = 'mixed8'
 intermediate_layer_model = Model(inputs=model.input,
                                  outputs=model.get_layer(layer_name).output)
-parentDataFolder='/home/livelab/Desktop/VideoData'
-pathToDestination='/media/livelab/Seagate Expansion Drive/ImageData'
-TTV=['Test','Validation','Training']
+parentDataFolder='/Users/lingfengli/Desktop/SIR/cela-tf-starter/Resize'
+pathToDestination='/Users/lingfengli/Desktop/SIR/InceptionData'
+TTV=['Test']
 for folder in TTV:
     pathToFolder=os.path.join(parentDataFolder,folder)
     cateList=os.listdir(pathToFolder)

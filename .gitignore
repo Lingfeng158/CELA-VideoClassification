@@ -1,3 +1,4 @@
 Preprocessing/plaidml-venv/
-Preprocessing/__pycache__/**\*
+Preprocessing/__pycache__/
 Preprocessing/.ipynb_checkpoints/
+.DS_Store

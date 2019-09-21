@@ -54,8 +54,9 @@ def prepdata(path):
                 if(data_length>200):
                     rangeOfData=data_length-200
                     startOfSegment=random.randint(0,rangeOfData-1)
-                    frameData=frameData[rangeOfData:rangeOfData+200]
-                partialAPJ=partial(altPathJoin, path1=subsubDir)
+                    frameData=frameData[startOfSegment:startOfSegment+200]
+                pathToClip=altPathJoin(clip,subsubDir)
+                partialAPJ=partial(altPathJoin, path1=pathToClip)
                 fullPathFrameData=map(partialAPJ,frameData)
                 labelList.append(onehot_encoded[iter])
                 dataList.append(list(fullPathFrameData))
