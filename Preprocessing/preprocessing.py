@@ -12,6 +12,10 @@ from functools import partial
 from PIL import Image
 import random
 
+def makedir(dirName):
+    cmd="mkdir {}"
+    os.system(cmd.format( dirName))
+
 def altPathJoin(path2, path1):
     return os.path.join(path1, path2)
 
@@ -67,7 +71,7 @@ def prepdata(path):
                 dataList.append(list(fullPathFrameData))
                 #dataList.append(frameData)
         iter+=1
-    return labelList, dataList
+    return list(zip(labelList, dataList))
 
 def imageListLoader(fileList):
     fileList.sort()
@@ -82,7 +86,7 @@ def imageListLoader(fileList):
             img=img.transpose(Image.FLIP_LEFT_RIGHT)
         img=np.array(img)
         img=(img/255-1)*2
-        img=img.reshape(1,244,244,3)
+        #img=img.reshape(1,244,244,3)
         resultList.append(img)
     return resultList
 
@@ -92,6 +96,71 @@ def npyListLoader(fileList):
     data=np.load(filename)
     resultList.append(data)
     return resultList
+
+def checkAndGeneratePath(parentPath):
+    """
+    This function takes in parent path for data, normally three folder should be under the folder:
+    Test, Training and Validation (TTV)
+    The function will check all subfolders have same subsubfolders,
+    and return [subfolderlist]
+    """
+    folderList=os.listdir(parentPath)
+    if '.DS_Store' in folderList:
+        folderList.remove('.DS_Store')
+    listOfcate=genList(parentPath,folderList)
+    #snow ball canonical to include all categories appeared in elements of folderLst
+    canonical=[]
+    for folder in listOfcate:
+        canonical=list(set(canonical).union(set(folder)))
+    for folder in folderList:
+        """
+        folder = each TTV
+        """
+        pathToFolder=altPathJoin(folder,parentPath)
+        itemList=os.listdir(pathToFolder)
+        if '.DS_Store' in itemList:
+            itemList.remove('.DS_Store')
+        #figure out the lacking categories
+        diff=list(set(canonical)-set(itemList))
+        for category in diff:
+            makedir(altPathJoin('"'+category+'"',pathToFolder))
+    #at this point, all folder length should be equal
+    if(checkEqual(parentPath,folderList)):
+        print("Length Check on Folder Succeed")
+    else:
+        print("Error in TTV Folder Length")
+        
+def checkEqual(path, listOfFolder):
+    """
+    Return the position of element with largest value, and if 
+    """
+    listOfLength=[]
+    for folder in listOfFolder:
+        pathToFolder=altPathJoin(folder,path)
+        itemList=os.listdir(pathToFolder)
+        if '.DS_Store' in itemList:
+            itemList.remove('.DS_Store')
+        listOfLength.append(len(itemList))
+    maxVal=max(listOfLength)
+    sumVal=sum(listOfLength)
+    if (sumVal==maxVal*len(listOfLength)):
+        return True
+    else:
+        print('sum: ', sumVal, 'maxVal:', maxVal)
+        return False
+
+def genList(path, listOfFolder):
+    """
+    Return a list of lists of categories of elements in listOfFolder
+    """
+    listOfCate=[]
+    for folder in listOfFolder:
+        pathToFolder=altPathJoin(folder,path)
+        itemList=os.listdir(pathToFolder)
+        if '.DS_Store' in itemList:
+            itemList.remove('.DS_Store')
+        listOfCate.append(itemList)
+    return listOfCate
 
 
 if __name__ == '__main__':
