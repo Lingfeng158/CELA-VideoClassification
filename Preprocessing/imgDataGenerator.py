@@ -1,11 +1,16 @@
 import numpy as np
 import keras
+import sys
+# insert at 1, 0 is the script path (or '' in REPL)
+sys.path.insert(1, './Preprocessing')
+from preprocessing import *
 
 class imgDataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
     def __init__(self, dataPath, batch_size=1, shuffle=True):
         'Initialization'
         self.dataPath = dataPath
+        self.batch_size=batch_size
         self.shuffle = shuffle
         self.on_epoch_end()
         
@@ -38,7 +43,7 @@ class imgDataGenerator(keras.utils.Sequence):
         """
         Speciallized for this Deep learning task, ID should be a single number
         """
-        loadedData=imgListLoader(self.data[ID])
+        loadedData=imageListLoader(self.data[ID])
         dataLabel=self.labels[ID]
 
-        return loadedData, dataLabel
+        return np.array([loadedData]), np.array([dataLabel])
