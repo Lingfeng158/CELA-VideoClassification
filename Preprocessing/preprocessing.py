@@ -23,6 +23,7 @@ def prepdata(path):
     """
     given path to data parent folder, return [onehot encoded category, sorted clip data path]
     """
+    framesToUse=100
     labelList=[]
     dataList=[]
     #get one-hot label for categories
@@ -60,14 +61,15 @@ def prepdata(path):
                 ###############################################################
                 #for data_length>200, randomly select a segment of 200 frames #
                 ###############################################################
-                if(data_length>200):
-                    rangeOfData=data_length-200
+                if(data_length>framesToUse):
+                    rangeOfData=data_length-framesToUse
                     startOfSegment=random.randint(0,rangeOfData-1)
-                    frameData=frameData[startOfSegment:startOfSegment+200]
+                    frameData=frameData[startOfSegment:startOfSegment+framesToUse]
                 pathToClip=altPathJoin(clip,subsubDir)
                 partialAPJ=partial(altPathJoin, path1=pathToClip)
                 fullPathFrameData=map(partialAPJ,frameData)
                 labelList.append(onehot_encoded[iter])
+                #labelList.append(np_label[iter])
                 dataList.append(list(fullPathFrameData))
                 #dataList.append(frameData)
         iter+=1
