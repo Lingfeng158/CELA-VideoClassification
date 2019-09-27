@@ -68,7 +68,7 @@ def prepdata(path):
                 pathToClip=altPathJoin(clip,subsubDir)
                 partialAPJ=partial(altPathJoin, path1=pathToClip)
                 fullPathFrameData=map(partialAPJ,frameData)
-                labelList.append(onehot_encoded[iter])
+                labelList.append(labelLst[iter])
                 #labelList.append(np_label[iter])
                 dataList.append(list(fullPathFrameData))
                 #dataList.append(frameData)
