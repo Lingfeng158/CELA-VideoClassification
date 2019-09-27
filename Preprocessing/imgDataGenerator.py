@@ -23,8 +23,10 @@ class imgDataGenerator(keras.utils.Sequence):
 
         # Generate data
         X, y = self.__data_generation(index)
-
-        return X, y
+        lenOfData=len(X[0])
+        yL=np.zeros((lenOfData,len(y[0])))
+        yL[:,:]=y
+        return X, np.array([yL])
 
     def on_epoch_end(self):
         """
