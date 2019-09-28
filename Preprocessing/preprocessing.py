@@ -21,11 +21,15 @@ def altPathJoin(path2, path1):
 
 def prepdata(path):
     """
-    given path to data parent folder, return [onehot encoded category, sorted clip data path]
+    Can be run multiple times to get different data
+    return zipped [list_of_label, list_of_path_to_data]
     """
-    framesToUse=100
+    framesToUse=30
     labelList=[]
     dataList=[]
+    #define the sample count for each category
+    #to balance data
+    categoryLength=45
     #get one-hot label for categories
     labelLst=os.listdir(path)
     if '.DS_Store' in labelLst:
@@ -41,6 +45,8 @@ def prepdata(path):
     #setup counter to distinguish categories
     iter=0
     for category in labelLst:
+        categoryLable=[]
+        categoryData=[]
         subDir=os.path.join(path, category)
         #currently in subject folders
         subjects=os.listdir(subDir)
@@ -68,10 +74,18 @@ def prepdata(path):
                 pathToClip=altPathJoin(clip,subsubDir)
                 partialAPJ=partial(altPathJoin, path1=pathToClip)
                 fullPathFrameData=map(partialAPJ,frameData)
-                labelList.append(labelLst[iter])
-                #labelList.append(np_label[iter])
-                dataList.append(list(fullPathFrameData))
+                categoryData.append(onehot_encoded[iter])
+                categoryLable.append(list(fullPathFrameData))
                 #dataList.append(frameData)
+        if(len(categoryLable)<=categoryLength):
+            labelList=labelList+categoryLable
+            dataList=dataList+categoryData
+        else:
+            for i in range(len(categoryLable)):
+                randInt=random.randint(0,len(categoryLable)-1)
+                if(randInt<categoryLength):
+                    labelList.append(categoryLable[i])
+                    dataList.append(categoryData[i])
         iter+=1
     return list(zip(labelList, dataList))
 
