@@ -74,23 +74,24 @@ def prepdata(path):
                 pathToClip=altPathJoin(clip,subsubDir)
                 partialAPJ=partial(altPathJoin, path1=pathToClip)
                 fullPathFrameData=map(partialAPJ,frameData)
-                categoryData.append(onehot_encoded[iter])
-                categoryLable.append(list(fullPathFrameData))
+                categoryLable.append(onehot_encoded[iter])
+                categoryData.append(list(fullPathFrameData))
                 #dataList.append(frameData)
         if(len(categoryLable)<=categoryLength):
             labelList=labelList+categoryLable
             dataList=dataList+categoryData
         else:
-            for i in range(len(categoryLable)):
-                randInt=random.randint(0,len(categoryLable)-1)
-                if(randInt<categoryLength):
-                    labelList.append(categoryLable[i])
-                    dataList.append(categoryData[i])
+            categoryCombo=list(zip(categoryLable,categoryData))
+            random.shuffle(categoryCombo)
+            categoryLable,categoryData = zip(*categoryCombo)
+            labelList=labelList+list(categoryLable[:len(categoryLable)])
+            dataList=dataList+list(categoryData[:len(categoryLable)])
         iter+=1
     return list(zip(labelList, dataList))
 
 def imageListLoader(fileList):
     fileList.sort()
+    #print(fileList)
     randInt=random.randint(0,1)
     invertData=False
     if (randInt==1):
