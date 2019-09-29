@@ -24,12 +24,12 @@ def prepdata(path):
     Can be run multiple times to get different data
     return zipped [list_of_label, list_of_path_to_data]
     """
-    framesToUse=90
+    framesToUse=75
     labelList=[]
     dataList=[]
     #define the sample count for each category
     #to balance data
-    categoryLength=45
+    categoryLength=30
     #get one-hot label for categories
     labelLst=os.listdir(path)
     if '.DS_Store' in labelLst:
