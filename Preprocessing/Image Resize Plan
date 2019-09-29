@@ -1,0 +1,28 @@
+Resize Original Image:
+S1; keep right half, *0.8, 4/9->|4/9|<-1/9
+S2: keep right half, *0.8, 4/9->|4/9|<-1/9
+S3: keep left half, *0.8
+S4: keep right half, *0.8
+S5: keep right half, *0.8
+S6: keep right half, *0.8
+S7: keep right half, *0.8
+
+
+w: 3840, h: 2160
+right keeping
+0--1706--3413--3840
+|
+216 *******
+|   *******
+1944*******
+|
+2160
+
+left keeping (for subject 3)
+0---------1706--3840
+|
+216 *******
+|   *******
+1944*******
+|
+2160
