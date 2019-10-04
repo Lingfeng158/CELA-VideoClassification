@@ -1,0 +1,46 @@
+Video Classification Log
+Week 1:
+Research ways to do video classification
+-LSTM
+-Sport1M
+-YouTube8M
+
+problem: unable to train in single image, bc all images too similar, unlike Sport1M/Youtube8M
+Problem: prev data in single image, need to be in sequence
+
+Week 2:
+Preprocessing Data
+bin all data
+
+problem: how to attach CNN and RNN?		Answer: time distributed
+
+Week 3:
+Set up model
+CNN-→LSTM+DNN (multi in single out)
+
+Variation 1: full inception V3 with partial trainable
+Variation 2: partial inception V3 not at all trainable
+Variation 3: untrainable inception modules
+Variation 4: trainable inception modules
+
+Problem: Val Loss too high, 3x training loss		Answer revise model to multi in multi out
+
+Week 4:
+Revise model
+CNN-→ LSTM-→ time distributed DNN
+
+Problem: data too unbalance
+Solution: delete tiny data set : CLAP	    Incision    Intubation-stylete    medication    Place cuff
+Stratify data by number of clips, and apply augmentation through frame manipulations
+
+Week 5
+
+Recreate Resize Data set
+Center subjects and re-adjust aspect ratio
+& retrain
+
+Week 6
+
+Re-create all data from scratch
+
+
