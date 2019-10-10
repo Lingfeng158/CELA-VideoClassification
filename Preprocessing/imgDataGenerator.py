@@ -26,7 +26,7 @@ class imgDataGenerator(keras.utils.Sequence):
         lenOfData=len(X[0])
         yL=np.zeros((lenOfData,len(y[0])))
         yL[:,:]=y
-        return X, np.array([yL])
+        return X, y#np.array([yL])
 
     def on_epoch_end(self):
         """
