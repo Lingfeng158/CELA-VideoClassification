@@ -22,7 +22,7 @@ class imgDataGenerator(keras.utils.Sequence):
         'Generate one batch of data'
 
         # Generate data
-        X, y = self.__data_generation(index)
+        X, y = self.__data_generation(self.indexes[index])
         lenOfData=len(X[0])
         yL=np.zeros((lenOfData,len(y[0])))
         yL[:,:]=y

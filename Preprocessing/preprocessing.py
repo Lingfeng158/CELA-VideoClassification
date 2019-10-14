@@ -24,7 +24,7 @@ def prepdata(path):
     Can be run multiple times to get different data
     return zipped [list_of_label, list_of_path_to_data]
     """
-    framesToUse=75
+    framesToUse=45
     labelList=[]
     dataList=[]
     #define the sample count for each category
@@ -35,6 +35,12 @@ def prepdata(path):
     if '.DS_Store' in labelLst:
         labelLst.remove('.DS_Store')
     labelLst.sort()
+    #match up with keras
+    labelLst=['ADMINISTER MEDICATION', 'BAGGING', 'BLOOD-PRESSURE CUFF', 'CHEST-TUBE', 'CHEST-TUBE PREP', 
+              'COMBAT GAUZE', 'COMBAT TOURNIQUET', 'CPR (BREATH)', 'CPR (COMPRESSION)', 'DRAW MEDICATION', 
+              'ECG LEADS', 'IM ADMINISTRATION', 'INTUBATION', 'IO LINE', 'IV LINE', 'IV TOURNIQUET', 
+              'KING AIRWAY', 'ORAL AIRWAY', 'PULSE-OX', 'SPLINTING', 'SUTURING',
+              'SWAB AREA WITH ALCOHOL', 'VITAL CHECKING', 'WRAP HEAD WOUND']
     np_label=np.array(labelLst)
     label_encoder = LabelEncoder()
     integer_encoded = label_encoder.fit_transform(np_label)
@@ -102,7 +108,7 @@ def imageListLoader(fileList):
         if(invertData):
             img=img.transpose(Image.FLIP_LEFT_RIGHT)
         img=np.array(img)
-        img=(img/255-1)*2
+        #img=(img/255-1)*2
         #img=img.reshape(1,244,244,3)
         resultList.append(img)
     return resultList
