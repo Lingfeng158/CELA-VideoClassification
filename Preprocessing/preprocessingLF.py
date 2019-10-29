@@ -89,7 +89,7 @@ def prepdata(path):
                     #elif not quiet enough
                     elif(data_length>(framesToUse-1)*framesGap):
                         frameDataToUse=[frameData[i] for i in np.array(range(framesToUse))*framesGap]
-                        frameData=frameData[framesToUse*framesGap:]
+                        frameData=frameData[(framesToUse-1)*framesGap:]
                         data_length=len(frameData)
                         pathToClip=altPathJoin(clip,subsubDir)
                         partialAPJ=partial(altPathJoin, path1=pathToClip)
