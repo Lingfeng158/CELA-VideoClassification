@@ -24,7 +24,7 @@ def prepdata(path):
     Can be run multiple times to get different data
     return zipped [list_of_label, list_of_path_to_data]
     """
-    framesToUse=45
+    framesToUse=36
     labelList=[]
     dataList=[]
     #define the sample count for each category

@@ -3,7 +3,7 @@ import keras
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(1, './Preprocessing')
-from preprocessing import *
+from CNNpreprocessing import *
 
 class imgDataGenerator(keras.utils.Sequence):
     'Generates data for Keras'

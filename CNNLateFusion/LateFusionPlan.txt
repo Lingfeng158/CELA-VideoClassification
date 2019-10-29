@@ -1,0 +1,10 @@
+Select 3 frames from 15 frames apart, i.e. frame 0, 15, 30
+DONE
+Shared parameters of inception modules
+DONE
+Fully connected layers connect modules and output result
+DONE
+Use custom image data generator
+DONE
+Data augmentation
+Not yet
