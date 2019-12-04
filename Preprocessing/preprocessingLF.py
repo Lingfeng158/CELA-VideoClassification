@@ -25,8 +25,8 @@ def prepdata(path):
     Used to generate data for majority vote
     return zipped [list_of_label, list_of_path_to_data]
     """
-    framesToUse=3 # aim for 2 seconds of data
-    framesGap=3 #4*5=20 frames between each selection #total uses 60 frames 
+    framesToUse=4 # aim for 2 seconds of data
+    framesGap=2 #4*5=20 frames between each selection #total uses 60 frames 
     categoryLength=400
     labelList=[]
     dataList=[]
@@ -35,9 +35,9 @@ def prepdata(path):
     if '.DS_Store' in labelLst:
         labelLst.remove('.DS_Store')
     labelLst.sort()
-    #match up with keras
+    #match up with keras # (BREATH)', 'CPR (COMPRESSION)
     labelLst=['ADMINISTER MEDICATION', 'BAGGING', 'BLOOD-PRESSURE CUFF', 'CHEST-TUBE', 'CHEST-TUBE PREP', 
-              'COMBAT GAUZE', 'COMBAT TOURNIQUET', 'CPR (BREATH)', 'CPR (COMPRESSION)', 'DRAW MEDICATION', 
+              'COMBAT GAUZE', 'COMBAT TOURNIQUET', 'CPR', 'DRAW MEDICATION', 
               'ECG LEADS', 'IM ADMINISTRATION', 'INTUBATION', 'IO LINE', 'IV LINE', 'IV TOURNIQUET', 
               'KING AIRWAY', 'ORAL AIRWAY', 'PULSE-OX', 'SPLINTING', 'SUTURING',
               'SWAB AREA WITH ALCOHOL', 'VITAL CHECKING', 'WRAP HEAD WOUND']

@@ -1,6 +1,6 @@
 Resize Original Image:
-S1; keep right half, *0.8, 4/9->|4/9|<-1/9
-S2: keep right half, *0.8, 4/9->|4/9|<-1/9
+S1; keep right half, *0.8, 4/9->|4/9|<-1/9 from 4k
+S2: keep right half, *0.8, 4/9->|4/9|<-1/9 from 4k
 S3: keep left half, *0.8
 S4: keep right half, *0.8
 S5: keep right half, *0.8
